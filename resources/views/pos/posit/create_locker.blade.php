@@ -2,22 +2,7 @@
 <html lang="en">
 <?php $data = session('dataUser'); ?>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Gymove - Fitness Bootstrap Admin Dashboard</title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('style/images/favicon.png') }}">
-    <!-- Form step -->
-    <link href="{{ asset('style/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css') }}" rel="stylesheet">
-    <!-- Custom Stylesheet -->
-    <link href="{{ asset('style/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('style/css/style.css') }}" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
-</head>
+@include('head')
 
 <body>
 
@@ -105,95 +90,32 @@
                     <div class="col-xl-12 col-xxl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Form step</h4>
+                                <h4 class="card-title">Booking Locker</h4>
+                                <p id="demo"></p>
                             </div>
                             <div class="card-body">
-                                <div id="smartwizard" class="form-wizard order-create">
-                                    <ul class="nav nav-wizard">
-                                        <li>
-                                            <a class="nav-link" href="#wizard_Service">
-                                                <span>1</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="#wizard_Time">
-                                                <span>2</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="#wizard_Details">
-                                                <span>3</span>
-                                            </a>
-                                        </li>
+                                @include('pos/posit/locker_table')
 
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div id="wizard_Service" class="tab-pane" role="tabpanel">
-                                            <div class="row">
-
-                                                @include('pos/posit/locker_table')
-
-                                                <div class="col-lg-6 mb-2">
-
-                                                    <div class="form-group">
-                                                        <label class="text-label">Locker:</label>
-                                                        <input type="text" id="locker" name="locker"
-                                                            class="form-control border border-primary"
-                                                            placeholder="Locker" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-lg-6 mb-2">
+                                    <form method="POST" action="{{ url('pos/pesan') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label class="text-label">Locker:</label>
+                                            <input type="text" id="locker" name="loker"
+                                                class="form-control border border-primary text-black readonly"
+                                                placeholder="Locker" required>
+                                            <input type="text" id="id_loker" name="id_loker" hidden>
                                         </div>
-                                        <div id="wizard_Time" class="tab-pane" role="tabpanel">
-                                            <div class="row">
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Company Name*</label>
-                                                        <input type="text" name="firstName" class="form-control"
-                                                            placeholder="Cellophane Square" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Company Email Address*</label>
-                                                        <input type="email" class="form-control" id="emial1"
-                                                            placeholder="example@example.com.com" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Company Phone Number*</label>
-                                                        <input type="text" name="phoneNumber" class="form-control"
-                                                            placeholder="(+1)408-657-9007" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Your position in
-                                                            Company*</label>
-                                                        <input type="text" name="place" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label class="text-label">Price:</label>
+                                            <input type="text" id="harga" name="harga"
+                                                class="form-control border border-primary text-black readonly"
+                                                placeholder="Price" required>
                                         </div>
-                                        <div id="wizard_Details" class="tab-pane" role="tabpanel">
-
-                                            <div class="col-xl-4 col-lg-6 col-sm-6 d-flex justify-content-center">
-                                                <div class="card" style="width: 18rem;">
-                                                    {{ QrCode::size(280)->generate(json_encode($data)) }}
-                                                    {{-- <img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->generate()) }}"
-                                                        class="card-img-top" alt="..."> --}}
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Locker : B5</h5>
-                                                        <p class="card-text">Scan this QR Code to use your
-                                                            locker, have a nice day :)</p>
-                                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-info">Reserve</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -211,8 +133,8 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="http://dexignzone.com/"
-                        target="_blank">DexignZone</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a target="_blank">TEETIP</a>
+                    2022</p>
             </div>
         </div>
         <!--**********************************
@@ -233,43 +155,17 @@
         Main wrapper end
     ***********************************-->
 
-    <!-- Required vendors -->
-    <script src="{{ asset('style/vendor/global/global.min.js') }}"></script>
-    <script src="{{ asset('style/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('style/js/custom.min.js') }}"></script>
-    <script src="{{ asset('style/js/deznav-init.js') }}"></script>
-
-
-
-
-    <script src="{{ asset('style/vendor/jquery-steps/build/jquery.steps.min.js') }}"></script>
-    <script src="{{ asset('style/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-    <!-- Form validate init -->
-    <script src="{{ asset('style/js/plugins-init/jquery.validate-init.js') }}"></script>
-
-
-
-    <!-- Form Steps -->
-    <script src="{{ asset('style/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js') }}">
-    </script>
+    @include('footer')
 
     <script>
-        $(document).ready(function() {
-            // SmartWizard initialize
-            $('#smartwizard').smartWizard();
-            $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex,
-                stepDirection) {
-                console.log(nextStepIndex);
-                if (nextStepIndex == 2) {
-                    $(".sw-btn-next").hide();
-                    $(".sw-btn-prev").hide();
-                }
-            });
+        $(".readonly").keydown(function(e) {
+            e.preventDefault();
         });
 
-
-        function addtext(isi) {
+        function addtext(isi, harga, id) {
             $("#locker").val(isi);
+            $("#harga").val(harga);
+            $("#id_loker").val(id);
         }
     </script>
 

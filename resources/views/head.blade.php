@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Gymove - Fitness Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('style/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('style/images/logo-POSit!.png') }}">
 
     <link rel="stylesheet" href="{{ asset('style/vendor/chartist/css/chartist.min.css') }}">
     <link href="{{ asset('style/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">

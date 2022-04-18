@@ -40,7 +40,7 @@ class C_Beranda extends Controller
         }
         $data = M_User::join('t_rekening', 'user.Id', '=', 't_rekening.id_user')
             ->where('Id', $req->input('id'))->first();
-        $req->session()->put('data', $data);
+        $req->session()->put('dataUser', $data);
         return redirect('pos/beranda')->with(['status' => 'Data Berhasil Disimpan!']);
     }
 }

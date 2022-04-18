@@ -32,7 +32,20 @@ Route::middleware(['CekHakAkses'])->group(function () {
     Route::post('pos/savename', 'pos\C_Beranda@saveName');
 
     // * Fitur Booking
+    Route::get('pos/detail_pesanan/{uniq}', 'pos\C_Locker@viewDetailPesanan');
+
+    //! expired change
+    Route::get('pos/detail_pesanan/{id}/{uniq}/{exp}/{waktu}/{kode}', 'pos\C_Locker@expPesanan');
+    //!
+    //? Confirm
+    Route::get('pos/detail_pesanan/{id}/{uniq}/{waktu}', 'pos\C_Locker@confirm');
+    //?
     Route::get('pos/booking_locker', 'pos\C_Locker@viewListlocker');
     Route::get('pos/locker/{id}', 'pos\C_Locker@viewLocker');
+    Route::post('pos/pesan', 'pos\C_Locker@prosesPesanan');
+
+    // * history
+    Route::get('pos/history/{id}', 'pos\C_Locker@viewHistory');
+    Route::get('pos/detail_pesanan/{id}/{uniq}', 'pos\C_Locker@viewDetailHistory');
 });
 // !

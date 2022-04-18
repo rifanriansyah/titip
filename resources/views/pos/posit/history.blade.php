@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-$data = session()->get('dataUser');
-?>
+<?php $data = session('dataUser'); ?>
+
 @include('head')
 
 <body>
@@ -32,9 +31,9 @@ $data = session()->get('dataUser');
         ***********************************-->
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
-                <img class="brand-title" src="{{ asset('style/images/logo-text.png') }}" alt="">
+                {{-- <img class="logo-compact" src="{{ asset('style/images/pos-text.png') }}" alt="">
+                <img class="brand-title" src="{{ asset('style/images/pos-text.png') }}" alt=""> --}}
                 <img class="logo-abbr" src="{{ asset('style/images/logo-POSit!.png') }}" alt="">
-                <img class="logo-compact" src="{{ asset('style/images/logo-text.png') }}" alt="">
             </a>
 
             <div class="nav-control">
@@ -43,8 +42,6 @@ $data = session()->get('dataUser');
                         class="line"></span>
                 </div>
             </div>
-
-
         </div>
         <!--**********************************
             Nav header end
@@ -53,7 +50,7 @@ $data = session()->get('dataUser');
         <!--**********************************
             Chat box start
         ***********************************-->
-
+        <!-- ! delete -->
         <!--**********************************
             Chat box End
         ***********************************-->
@@ -72,8 +69,7 @@ $data = session()->get('dataUser');
         <!--**********************************
             Sidebar start
         ***********************************-->
-        @include('sidebar')
-
+        @include('../sidebar')
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -85,38 +81,51 @@ $data = session()->get('dataUser');
             <div class="container-fluid">
                 <div class="page-titles">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Layout</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Blank</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">My Account</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">History</a></li>
                     </ol>
                 </div>
+                <!-- row -->
                 <div class="row">
-                    @foreach ($list as $row)
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="new-arrival-product">
-                                        <div class="new-arrivals-img-contnent">
-                                            <img class="img-fluid"
-                                                src="{{ asset('style/images/product/1.jpg') }}" alt="">
-                                        </div>
-                                        <div class="new-arrival-content text-center mt-3">
-                                            <h4><a href="ecom-product-detail.html">{{ $row->lokasi }}</a></h4>
-                                            <ul class="star-rating">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star-half-empty"></i></li>
-                                                <li><i class="fa fa-star-half-empty"></i></li>
-                                            </ul>
-                                            <a type="button" href="{{ url('pos/locker/' . $row->id_lokasi_loker) }}"
-                                                class="btn btn-primary">Button</a>
-                                        </div>
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-5 order-md-2 mb-4">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-muted">History Pemesanan</span>
+                                        </h4>
+
+                                        <ul class="list-group mb-3">
+                                            @foreach ($alldata as $item)
+                                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                                    <a
+                                                        href="{{ url('pos/detail_pesanan/' . $item->id_user . '/' . $item->kode_pesan) }}">
+                                                        <div>
+                                                            <h6 class="my-0">{{ $item->kode_pesan }}</h6>
+                                                            @if ($item->status == 'Sudah_bayar')
+                                                                <small class="text-light badge badge-success">
+                                                                    {{ $item->status }}
+                                                                </small>
+                                                            @else
+                                                                <small class="text-light badge badge-danger">
+                                                                    {{ $item->status }}
+                                                                </small>
+                                                            @endif
+                                                        </div>
+                                                    </a>
+                                                    <span class="text-muted">{{ $item->waktu_pemesanan }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,13 +162,6 @@ $data = session()->get('dataUser');
     ***********************************-->
 
     @include('footer')
-
-    @if (session('status'))
-        <script>
-            swal("Empty", "{{ session('status') }}", "error");
-        </script>
-    @endif
-
 
 </body>
 
