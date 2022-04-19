@@ -105,6 +105,8 @@
                                                 class="form-control border border-primary text-black readonly"
                                                 placeholder="Locker" required>
                                             <input type="text" id="id_loker" name="id_loker" hidden>
+                                            <input type="text" id="id_loker" name="idloc" value="{{ $idloc }}"
+                                                hidden>
                                         </div>
                                         <div class="form-group">
                                             <label class="text-label">Price:</label>
@@ -156,6 +158,12 @@
     ***********************************-->
 
     @include('footer')
+    @if (session('status'))
+        <script>
+            swal("Gagal", "{{ session('status') }}", "error");
+        </script>
+    @endif
+
 
     <script>
         $(".readonly").keydown(function(e) {

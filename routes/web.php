@@ -38,7 +38,7 @@ Route::middleware(['CekHakAkses'])->group(function () {
     Route::get('pos/detail_pesanan/{id}/{uniq}/{exp}/{waktu}/{kode}', 'pos\C_Locker@expPesanan');
     //!
     //? Confirm
-    Route::get('pos/detail_pesanan/{id}/{uniq}/{waktu}', 'pos\C_Locker@confirm');
+    Route::get('pos/confirm/{id}/{uniq}/{waktu}/{idpesan}', 'pos\C_Locker@confirm');
     //?
     Route::get('pos/booking_locker', 'pos\C_Locker@viewListlocker');
     Route::get('pos/locker/{id}', 'pos\C_Locker@viewLocker');
@@ -47,5 +47,6 @@ Route::middleware(['CekHakAkses'])->group(function () {
     // * history
     Route::get('pos/history/{id}', 'pos\C_Locker@viewHistory');
     Route::get('pos/detail_pesanan/{id}/{uniq}', 'pos\C_Locker@viewDetailHistory');
+    Route::get('pos/selesai/{id_pesan}/{loker}/{wkt}', 'pos\C_Locker@pesananSelesai');
 });
 // !

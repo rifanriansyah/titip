@@ -100,7 +100,7 @@ $data = session()->get('dataUser');
                                     <p class="text-uppercase">Total : {{ $pesanan[0]->total_harga }}</p>
                                     <p class="text-uppercase">Status Pemesanan : {{ $pesanan[0]->status }}</p>
                                     @if ($pesanan[0]->EXPIRED == 0)
-                                        <a href="{{ url('pos/detail_pesanan/' . $pesanan[0]->id_user . '/' . $pesanan[0]->kode_pesan . '/' . $pesanan[0]->waktu_pemesanan) }}"
+                                        <a href="{{ url('pos/confirm/' .$pesanan[0]->id_user .'/' .$pesanan[0]->kode_pesan .'/' .$pesanan[0]->waktu_pemesanan .'/' .$pesanan[0]->id_pemesanan) }}"
                                             class="light btn btn-danger btn-card">Confirm
                                             Payment</a>
                                     @endif
@@ -149,10 +149,18 @@ $data = session()->get('dataUser');
                                 </button>
                             </div>
                             <div class="modal-body">
-                                {{ QrCode::size(240)->generate($pesanan[0]) }}
+                                @if ($pesanan[0]->SELESAI == 0)
+                                    {{ QrCode::size(240)->generate($pesanan[0]) }}
+                                @else
+                                    <h2>Terima kasih :)</h2>
+                                @endif
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                @if ($pesanan[0]->SELESAI == 0)
+                                    <a href="{{ url('pos/selesai/' . $pesanan[0]->id_pemesanan . '/' . $pesanan[0]->id_locker . '/' . $pesanan[0]->waktu_pemesanan) }}"
+                                        type="button" class="btn btn-primary">Selesai</a>
+                                @endif
                             </div>
                         </div>
                     </div>

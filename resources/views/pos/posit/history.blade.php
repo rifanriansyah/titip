@@ -162,6 +162,11 @@
     ***********************************-->
 
     @include('footer')
+    @isset($status)
+        <script>
+            swal("Berhasil", "{{ $status }}", "success");
+        </script>
+    @endisset
 
 </body>
 

@@ -15,6 +15,7 @@ class C_Beranda extends Controller
         return view('pos/dashboard');
     }
 
+
     public function saveName(Request $req)
     {
 
