@@ -16,7 +16,7 @@
                                         <a href="{{ url('/beranda') }}"><img
                                                 src="{{ asset('style/images/logo-full-POSit!.png') }}" alt=""></a>
                                     </div>
-                                    <h4 class="text-center mb-4 text-white">Sign in Your Account</h4>
+                                    <h4 class="text-center mb-4 text-white">Sign in</h4>
                                     <form method="POST" enctype="multipart/form-data"
                                         action="{{ url('/proseslogin') }}">
                                         @csrf
