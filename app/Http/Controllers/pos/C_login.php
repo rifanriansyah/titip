@@ -16,20 +16,24 @@ class C_login extends Controller
     public function proseslogin(Request $req)
     {
         $firstUser = M_User::where('nohp', $req->input('nohp'))->first();
-        if ($firstUser->nama == 'user') {
-            $data = M_User::where('nohp', $req->input('nohp'))->first();
-        } else {
-            $data = M_User::join('t_rekening', 'user.Id', '=', 't_rekening.id_user')
-                ->where('nohp', $req->input('nohp'))->first();
-        }
-        if ($data) {
-            if (Hash::check($req->input('pin'), $data->pin)) {
-                $req->session()->put('HakAkses', true);
-                $req->session()->put('dataUser', $data);
-                return view('pos/dashboard');
+        if (isset($firstUser)) {
+            if (isset($firstUser->nama) && $firstUser->nama == 'user') {
+                $data = M_User::where('nohp', $req->input('nohp'))->first();
+            } else {
+                $data = M_User::join('t_rekening', 'user.Id', '=', 't_rekening.id_user')
+                    ->where('nohp', $req->input('nohp'))->first();
             }
+            if ($data) {
+                if (Hash::check($req->input('pin'), $data->pin)) {
+                    $req->session()->put('HakAkses', true);
+                    $req->session()->put('dataUser', $data);
+                    return view('pos/dashboard');
+                }
+            }
+            return redirect('/')->with('status', 'No hp atau Pin salah');
+        } else {
+            return redirect('/')->with('status', 'No hp atau Pin salah');
         }
-        // return redirect('/')->with('status', 'No hp atau Pin salah');
     }
 
     public function proseslogout(Request $req)
